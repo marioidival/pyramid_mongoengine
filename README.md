@@ -38,3 +38,17 @@ If theses data not exists in .ini, `pyramid-mongoengine` use default values
 mongo_url = mongodb://localhost
 mongodb_name = "test"
 ```
+
+## Creating models
+
+```python
+
+from pyramid_mongoengine import MongoEngine
+
+db = MongoEngine()
+
+class User(db.Document):
+    email = db.StringField(required=True)
+    username = db.StringField(requred=True)
+
+```

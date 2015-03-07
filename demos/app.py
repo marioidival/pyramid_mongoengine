@@ -37,6 +37,8 @@ def show(request):
 if __name__ == "__main__":
     config = Configurator()
 
+    config.add_settings({"mongodb_name": "pyramid_mongoengine_test"})
+
     config.include("pyramid_mongoengine")
     config.add_connection_database()
 
