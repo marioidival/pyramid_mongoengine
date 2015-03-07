@@ -27,7 +27,8 @@ REQUIRES = [
 
 TEST_REQUIRES = [
     "nose",
-    "coverage"
+    "coverage",
+    "webtest"
 ]
 
 def readme():
