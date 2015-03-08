@@ -2,7 +2,7 @@
 
 pyramid-mongoengine package based in [flask-mongoengine](https://github.com/MongoEngine/flask-mongoengine)
 
-## *** README In Progress ***
+## README In Progress
 
 ## Install
 
@@ -52,3 +52,5 @@ class User(db.Document):
     username = db.StringField(requred=True)
 
 ```
+
+See [demo](https://github.com/marioidival/pyramid_mongoengine/blob/master/demos/app.py) application to examples
