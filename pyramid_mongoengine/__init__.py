@@ -18,14 +18,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-
 from __future__ import unicode_literals
 import mongoengine
 
-from mongoengine.queryset import (
-    MultipleObjectsReturned, DoesNotExist, QuerySet
-)
 from mongoengine.base import ValidationError
+from mongoengine.queryset import (
+    MultipleObjectsReturned,
+    DoesNotExist,
+    QuerySet
+)
 
 from pyramid.httpexceptions import exception_response
 from pyramid.renderers import JSON
@@ -41,22 +42,26 @@ def _include_mongoengine(obj):
 
 
 def _connect_database(config):
-    """Create simple connection with Mongodb"""
+    """Create simple connection with Mongodb
+
+    config comes with settings from .ini file.
+    """
     settings = config.registry.settings
 
-    mongo_url = "mongodb://localhost"
+    mongo_uri = "mongodb://localhost"
     mongodb_name = "test"
 
     if settings.get("mongo_url"):
-        mongo_url = settings["mongo_url"]
+        mongo_uri = settings["mongo_url"]
 
     if settings.get("mongodb_name"):
         mongodb_name = settings["mongodb_name"]
 
-    return mongoengine.connect(mongodb_name, host=mongo_url)
+    return mongoengine.connect(mongodb_name, host=mongo_uri)
 
 
 class MongoEngine(object):
+    """ MongoEngine class based on flask-mongoengine """
 
     def __init__(self, config=None):
 
@@ -71,7 +76,9 @@ class MongoEngine(object):
 
 class BaseQuerySet(QuerySet):
     """
-    A base queryset with handy extras
+    A base queryset with handy extras.
+
+    BaseQuerySet based on flask-mongoengine
     """
 
     def get_or_404(self, *args, **kwargs):
@@ -90,15 +97,21 @@ class BaseQuerySet(QuerySet):
 
 
 class Document(mongoengine.Document):
-    """Abstract document with extra helpers in the queryset class"""
+    """Abstract document with extra helpers in the queryset class.
 
-    meta = {'abstract': True, 'queryset_class': BaseQuerySet}
+    Document class based on flask-mongoengine
+    """
+
+    meta = {"abstract": True, "queryset_class": BaseQuerySet}
 
 
 class DynamicDocument(mongoengine.DynamicDocument):
-    """Abstract Dynamic document with extra helpers in the queryset class"""
+    """Abstract Dynamic document with extra helpers in the queryset class.
 
-    meta = {'abstract': True, 'queryset_class': BaseQuerySet}
+    DynamicDocument class based on flask-mongoengine
+    """
+
+    meta = {"abstract": True, "queryset_class": BaseQuerySet}
 
 
 def includeme(config):
@@ -106,6 +119,7 @@ def includeme(config):
     # How to connect: config.add_connection_database()
     config.add_directive("add_connection_database", _connect_database)
 
+    # Modify default JSON renderer
     json_adapter = JSON(adapters=new_adapters)
 
     config.add_renderer("json", json_adapter)
