@@ -1,2 +1,2 @@
-include *.txt *.ini *.cfg *.rst
-recursive-include encontreumpet *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.jsx
+include *.txt *.ini *.cfg *.rst *.md
+recursive-include pyramid_mongoengine *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.jsx
