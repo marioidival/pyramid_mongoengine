@@ -38,11 +38,12 @@ def readme():
 
 setup(
     name="pyramid-mongoengine",
-    version="0.0.0",
+    version="0.0.1",
     description="Mongoengine Pyramid extension based in flask-mongoengine",
     long_description=readme(),
     url="https://github.com/marioidival/pyramid_mongoengine",
     packages=find_packages(),
+    include_package_data=True,
 
     author="Mario Idival",
     author_email="marioidival@gmail.com",
