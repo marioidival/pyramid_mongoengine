@@ -22,7 +22,7 @@ from setuptools import find_packages, setup
 
 REQUIRES = [
     "pymongo==2.8",
-    "mongoengine==0.8.7",
+    "mongoengine==0.9.0",
     "pyramid"
 ]
 
@@ -39,7 +39,7 @@ def readme():
 
 setup(
     name="pyramid-mongoengine",
-    version="0.0.2",
+    version="0.0.3",
     description="Mongoengine Pyramid extension based in flask-mongoengine",
     long_description=readme(),
     url="https://github.com/marioidival/pyramid_mongoengine",
