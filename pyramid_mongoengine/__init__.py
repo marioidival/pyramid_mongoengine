@@ -63,15 +63,12 @@ def _connect_database(config):
 class MongoEngine(object):
     """ MongoEngine class based on flask-mongoengine """
 
-    def __init__(self, config=None):
+    def __init__(self):
 
         _include_mongoengine(self)
 
         self.Document = Document
         self.DynamicDocument = DynamicDocument
-
-        if config:
-            _connect_database(config)
 
 
 class BaseQuerySet(QuerySet):
