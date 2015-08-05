@@ -48,7 +48,7 @@ def _connect_database(config):
     """
     settings = config.registry.settings
 
-    mongo_uri = "mongodb://localhost"
+    mongo_uri = "mongodb://localhost:27017"
     mongodb_name = "test"
 
     if settings.get("mongo_url"):
