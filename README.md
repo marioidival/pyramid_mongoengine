@@ -54,3 +54,8 @@ class User(db.Document):
 ```
 
 See [demo](https://github.com/marioidival/pyramid_mongoengine/blob/master/demos/app.py) application to examples
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/marioidival/pyramid_mongoengine/badge.svg?style=beer-square)](https://beerpay.io/marioidival/pyramid_mongoengine)  [![Beerpay](https://beerpay.io/marioidival/pyramid_mongoengine/make-wish.svg?style=flat-square)](https://beerpay.io/marioidival/pyramid_mongoengine?focus=wish)
