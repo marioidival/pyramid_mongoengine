@@ -21,7 +21,7 @@
 from __future__ import unicode_literals
 import mongoengine
 
-from mongoengine.base import ValidationError
+from mongoengine.errors import ValidationError
 from mongoengine.queryset import (
     MultipleObjectsReturned,
     DoesNotExist,
