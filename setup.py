@@ -39,7 +39,7 @@ def readme():
 
 setup(
     name="pyramid-mongoengine",
-    version="0.0.4",
+    version="0.0.9",
     description="Mongoengine Pyramid extension based in flask-mongoengine",
     long_description=readme(),
     url="https://github.com/marioidival/pyramid_mongoengine",
