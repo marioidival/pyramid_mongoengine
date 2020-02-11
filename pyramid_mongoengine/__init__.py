@@ -48,16 +48,58 @@ def _connect_database(config):
     """
     settings = config.registry.settings
 
-    mongo_uri = "mongodb://localhost:27017"
+    mongodb_url = "mongodb://localhost:27017"
     mongodb_name = "test"
+    mongodb_rs = None
+    mongodb_user = None
+    mongodb_pass = None
 
     if settings.get("mongo_url"):
-        mongo_uri = settings["mongo_url"]
+        mongodb_url = settings["mongo_url"]
 
     if settings.get("mongodb_name"):
         mongodb_name = settings["mongodb_name"]
+        if "?" in mongodb_name:
+            mongodb_rs = mongodb_name.split('?')[1].split("=")[1]
+            mongodb_name = mongodb_name.split('?')[0]
 
-    return mongoengine.connect(mongodb_name, host=mongo_uri)
+    if settings.get("mongodb_replicaset"):
+        mongodb_rs = settings["mongodb_replicaset"]
+    if settings.get("mongodb_user"):
+        mongodb_user = settings["mongodb_user"]
+    if settings.get("mongodb_password"):
+        mongodb_pass = settings["mongodb_password"]
+
+    if not mongodb_user and mongodb_rs: # with no user and replicaSet
+        from pymongo import ReadPreference
+        mongo_connection = mongoengine.connect(
+            mongodb_name,
+            host=mongodb_url,
+            replicaSet=mongodb_rs,
+            read_preference=ReadPreference.SECONDARY_PREFERRED)
+    elif mongodb_user and mongodb_rs: # with user and replicaSet
+        from pymongo import ReadPreference
+        mongo_connection = mongoengine.connect(
+            mongodb_name,
+            username=mongodb_user,
+            password=mongodb_pass,
+            authentication_source='admin',
+            host=mongodb_url,
+            replicaSet=mongodb_rs,
+            read_preference=ReadPreference.SECONDARY_PREFERRED)
+    elif mongodb_user and not mongodb_rs: # with user and without replicaSet
+        mongo_connection = mongoengine.connect(
+            mongodb_name,
+            username=mongodb_user,
+            password=mongodb_pass,
+            authentication_source='admin',
+            host=mongodb_url)
+    else: # without user and without replicaSet
+        mongo_connection = mongoengine.connect(
+            mongodb_name,
+            host=mongodb_url)
+
+    return mongo_connection
 
 
 class MongoEngine(object):
