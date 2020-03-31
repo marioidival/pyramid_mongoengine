@@ -49,7 +49,7 @@ db = MongoEngine()
 
 class User(db.Document):
     email = db.StringField(required=True)
-    username = db.StringField(requred=True)
+    username = db.StringField(required=True)
 
 ```
 
